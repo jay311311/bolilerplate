@@ -4,6 +4,8 @@ const port = 5000
 const bodyParser = require(`body-parser`); // client에서 오는 정보를 서버에서 분석해서 가져올수 있게 함
 const {User} = require("./models/User");
 
+const config = require(`./config/key`)
+
 //application/x-www-from-urlencoded 이렇게 생긴 데이터를 가져와서 분석 할수 있게 함
 app.use(bodyParser.urlencoded({extended : true}))
 // application/json 이렇게 생긴 데이터를 가져와서 분석 할수 있게 함
@@ -12,7 +14,7 @@ app.use(bodyParser.json());
 // mongodb+srv://jay311311:<password>@cluster0.49l1z.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 const mongoose = require('mongoose')
-mongoose.connect(`mongodb+srv://jay311311:Kje45419503!@cluster0.49l1z.gcp.mongodb.net/test?retryWrites=true&w=majority`,{
+mongoose.connect(config.mongoURI,{
   useNewUrlParser:true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify:false
 }).then(()=>console.log(`MongoDB connected`))
 .catch(err=>console.log(err))
